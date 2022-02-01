@@ -13,4 +13,3 @@ ADMIN
 2. Log-in this account
    Username: admin
    password: 123
-3.
