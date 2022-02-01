@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SketchCature</title>
+
+    <link rel="stylesheet" href="home.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
+      integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAlLkAWVPMnhq4CYKwrdYE9ALFUmRLWP5s",
+        authDomain: "sketch-f21df.firebaseapp.com",
+        databaseURL: "https://sketch-f21df-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "sketch-f21df",
+        storageBucket: "sketch-f21df.appspot.com",
+        messagingSenderId: "779034303863",
+        appId: "1:779034303863:web:8bc24aceb9dc2492531572"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      
+      import {
+        getDatabase,
+        ref,
+        set,
+        child,
+        get,
+        update,
+        remove,
+      } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-database.js";
+
+      const db = getDatabase();
+
+
+
+    </script>
+
+  </head>
+
+  <body>
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar" style="padding: 20px" href="index.html">
+          <img src="Logo.png" alt="SketchCature" width="50" height="50" />
+        </a>
+
+        <div class="container-fluid">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="addnewItem.html">Add new Item</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="viewlist.html"
+                  >View list of Items</a
+                >
+              </li>
+
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="itemforSale.html">Order</a>
+              </li> -->
+
+              <li class="nav-item">
+                <a class="nav-link" href="inventory.html">Inventory</a>
+              </li>
+            </ul>
+          </div>
+
+          <form class="d-flex my-2 my-lg-0">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item mx-1">
+              <a id="userlink" class="nav-link" href="">admin</a>
+            </li>
+
+            <li class="nav-item mx-1">
+              <a id="signoutlink" class="btn btn-outline-dark" href="admin-login.html">Sign out</a>
+              
+            </li>
+            </ul>
+
+
+            <!-- <a
+              class="btn btn-outline-dark my-2 my-sm-0"
+              type="submit"
+              href="login.html"
+              >Sign Out
+            </a> -->
+          </form>
+        </div>
+  
+      </nav>
+
+      <div class="banner">
+        <img src="Banner.png" class="img-fluid" alt="Banner" />
+      </div>
+    <h3 id="hh"></h3>
+
+  <script>
+     //-ref
+    let userlink=document.getElementById("userlink");
+    let signoutlink=document.getElementById("signoutlink");
+    let header = document.getElementById("hh");
+    var currentuser = null;
+
+    //- Functions
+
+    function getUsername(){
+      let keepLoggedIn = localStorage.getItem("keepLoggedIn");
+
+      if (keepLoggedIn == "yes"){
+        currentUser = JSON.parse(localStorage.getItem('user'));
+      }
+      else{
+        currentuser = JSON.parse(sessionStorage.getItem('user'));
+      }
+    }
+
+    function Signout(){
+      sessionStorage.removeItem('user');
+      localStorage.removeItem('user');
+      localStorage.removeItem('keepLoggedIn');
+      windows.location = "admin.html";
+
+    }
+
+    //-- ON LOAD
+
+    windows.onload = function (){
+      getUsername();
+      if(currentuser == null){
+        userlink.innerText = "Create New Account";
+        userlink.classList.replace("nav-link", btn);
+        userlink.classList.add("btn-dark");
+        userlink.href = "register.html";
+
+        signoutlink.innerText = "Login";
+        signoutlink.classList.replace("nav-link", btn);
+        signoutlink.classList.add("btn-dark");
+        signoutlink.href = "login1.html";
+  
+      }
+
+      else{
+        userlink.innerText = currentuser.Username;
+        userlink.innerText = "welcome " + currentuser.fullname;
+        userlink.classList.replace("btn", "nav-link");
+        userlink.classList.add("btn-dark");
+        userlink.href = "register.html";
+
+        signoutlink.innerText = "Sign Out";
+        signoutlink.classList.replace("btn", "nav-link");
+        signoutlink.classList.add("btn-dark");
+        signoutlink.href = "javascript:Signout()";
+
+        
+      }
+
+
+    }
+
+ 
+
+
+
+
+
+  </script>
+    
+  </body>
+</html>

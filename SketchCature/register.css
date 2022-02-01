@@ -1,0 +1,9 @@
+.cen {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  margin: auto;
+  padding-left: 30%;
+  padding-right: 30%;
+}
