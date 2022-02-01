@@ -11,5 +11,5 @@ ADMIN
 
 1. Open admin-login.html
 2. Log-in this account
-   Username: admin
+   Username: April
    password: 123
